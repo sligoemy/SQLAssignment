@@ -177,8 +177,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 # ANSWERS TO ASSIGNMENT
 
-##Question 1
-##Count the total number of customers who joined in 2023.
+## Question 1
+## Count the total number of customers who joined in 2023.
 
 	SELECT 
 	COUNT(customer_id) as 'Count of Customers'
