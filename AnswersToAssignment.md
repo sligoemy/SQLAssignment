@@ -1,6 +1,6 @@
 
-## SET UP
-###Creating the tables 
+# SET UP
+## Creating the tables 
 	CREATE TABLE customers (
 	customer_id INT IDENTITY(1,1) PRIMARY KEY,
 	full_name VARCHAR(50) NOT NULL,
@@ -43,7 +43,7 @@
 This creates five tables namely customers, products, orders, order_items, loyalty_points tables.
 
 
-### Inserting Data Into Tables
+## Inserting Data Into Tables
 	-- -----------------------------
 	-- Table: customers
 	-- -----------------------------
@@ -177,8 +177,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 ## ANSWERS TO ASSIGNMENT
 
-###Question 1
-###Count the total number of customers who joined in 2023.
+##Question 1
+##Count the total number of customers who joined in 2023.
 	SELECT 
 	COUNT(customer_id) as 'Count of Customers'
 	FROM customers
