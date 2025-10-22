@@ -175,17 +175,18 @@ This creates five tables namely customers, products, orders, order_items, loyalt
 Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically assign IDs to each rows,  all Ids as given were removed from all tables apart from loyal_points table.
 
 
-## ANSWERS TO ASSIGNMENT
+# ANSWERS TO ASSIGNMENT
 
 ##Question 1
 ##Count the total number of customers who joined in 2023.
+
 	SELECT 
 	COUNT(customer_id) as 'Count of Customers'
 	FROM customers
 	WHERE YEAR(join_date)=2023
 
-###Question 2 
-###For each customer return customer_id, full_name, total_revenue (sum of total_amount from orders). Sort descending.
+## Question 2
+## For each customer return customer_id, full_name, total_revenue (sum of total_amount from orders). Sort descending.
 	
 	SELECT 
 	c.customer_id,
@@ -201,8 +202,9 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	ORDER BY total_revenue DESC
 
-###Question 3 
-###Return the top 5 customers by total_revenue with their rank.
+## Question 3 
+## Return the top 5 customers by total_revenue with their rank.
+
 	with Total_Revenue as 
 	(SELECT
 	c.full_name, 
@@ -225,8 +227,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	WHERE rEV_Rank <= 5
 
-###Question 4
-###Produce a table with year, month, monthly_revenue for all months in 2023 ordered chronologically.
+## Question 4
+## Produce a table with year, month, monthly_revenue for all months in 2023 ordered chronologically.
 
 	SELECT
 	YEAR(Order_date) AS Year, 
@@ -238,8 +240,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 	WHERE YEAR(Order_Date) = 2023
 	GROUP BY YEAR(Order_Date), MONTH(order_date)
 
-###Question 5
-###Find customers with no orders in the last 60 days relative to 2023-12-31 (i.e., consider last active date up to 2023-12-31). Return customer_id, full_name, last_order_date.
+## Question 5
+## Find customers with no orders in the last 60 days relative to 2023-12-31 (i.e., consider last active date up to 2023-12-31). Return customer_id, full_name, last_order_date.
 
 
 	SELECT
@@ -256,8 +258,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	HAVING (DATEDIFF(day, Max(order_date), '2023-12-31')) > 60
 
-###Question 6
-###Calculate average order value (AOV) for each customer: return customer_id, full_name, aov (average total_amount of their orders). Exclude customers with no orders.
+## Question 6
+## Calculate average order value (AOV) for each customer: return customer_id, full_name, aov (average total_amount of their orders). Exclude customers with no orders.
 
 	SELECT 
 	c.customer_id,
@@ -272,8 +274,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	HAVING SUM(Total_Amount) IS NOT NULL 
 
-###Question 7 
-###For all customers who have at least one order, compute customer_id, full_name, total_revenue, spend_rank where spend_rank is a dense rank, highest spender = rank 1
+## Question 7 
+## For all customers who have at least one order, compute customer_id, full_name, total_revenue, spend_rank where spend_rank is a dense rank, highest spender = rank 1
 
 	WITH Total_Rev as 
 	(SELECT 
@@ -297,8 +299,8 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	WHERE Total_revenue is not null
 
-###Question 8
-###List customers who placed more than 1 order and show customer_id, full_name, order_count, first_order_date, last_order_date
+## Question 8
+## List customers who placed more than 1 order and show customer_id, full_name, order_count, first_order_date, last_order_date
 
 	SELECT
 	c.customer_id,
@@ -315,8 +317,9 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	HAVING COUNT(o.order_id) > 1
 
-###Question 9
-###Compute total loyalty points per customer. Include customers with 0 points.
+## Question 9
+## Compute total loyalty points per customer. Include customers with 0 points.
+
 	SELECT
 	c.customer_id, 
 	c.full_name, 
@@ -330,8 +333,9 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	ORDER BY loyalty_point DESC  
 
-###Question 10
-###10.Assign loyalty tiers based on total points: Bronze below 100; Silver: 100–499; Gold above  500  
+## Question 10
+## Assign loyalty tiers based on total points: Bronze below 100; Silver: 100–499; Gold above  500  
+
 	WITH tier_solutions AS (
     	SELECT 
         customer_id, 
@@ -357,8 +361,9 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 	ORDER BY total_points_earned DESC;
 
 
-###Question 11 
-###Identify customers who spent more than ₦50,000 in total but have less than 200 loyalty points. Return customer_id, full_name, total_spend, total_points.
+## Question 11 
+## Identify customers who spent more than ₦50,000 in total but have less than 200 loyalty points. Return customer_id, full_name, total_spend, total_points.
+
 	WITH customersx as (
 	SELECT 
 	customer_id,
@@ -399,8 +404,9 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	where Total_Revenue > 50000 AND loyalty_point < 200
 
-###Question 12 	
-### Flag customers as churn_risk if they have no orders in the last 90 days (relative to 2023-12-31) AND are in the Bronze tier. Return customer_id, full_name, last_order_date, total_points.
+## Question 12 	
+## Flag customers as churn_risk if they have no orders in the last 90 days (relative to 2023-12-31) AND are in the Bronze tier. Return customer_id, full_name, last_order_date, total_points.
+	
 	with orders_90Days as (
 	SELECT
 	c.customer_id,
@@ -441,12 +447,4 @@ Please note that since primary keys as set as IDENTITY(1,1) i.e. automatically a
 
 	WHERE  DATEDIFF(day, os.last_order_date, '2023-12-31') > 90 AND tier = 'Bronze'
 
-
-
-
-
-
-
-
-
-
+##END 
